@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="description" content="<%= @description %>" />
+        <link rel="stylesheet" href="<%= @settings.url %>/css/style.css" media="screen" />
+        <title><%= @title %></title>
+    </head>
+    <body>
+        <a href="http://github.com/you">
+            <img src="https://gs1.wac.edgecastcdn.net/80460E/assets/img/71eeaab9d563c2b3c590319b398dd35683265e85/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" class="ribbon" alt="Fork me on GitHub">
+        </a>
+        <nav>
+            <ul>
+                <li><a href="<%= @settings.url %>"<%= ' class="active"' if @uri == '/' %>>/home</a></li>
+                <li><a href="<%= @settings.url %>/blog"<%= ' class="active"' if @uri == '/blog' %>>/blog</a></li>
+            <% @pages.each do |page| %>
+                <li><a href="<%= @settings.url + '/' + page.slug %>"<%= ' class="active"' if @uri == page.slug %>><%= page.title %></a></li>
+            <% end %>
+            </ul>
+        </nav>
+        <div class="wrapper">
+            <%= yield %>
+            <footer>
+                <p class="keyword end">end</p>
+                <div class="left">
+                    <p class="comment"># &copy; Канат Гайлимов <%= Time.new.year %></p>
+                    <p>
+                        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
+                            <img alt="Creative Commons License" title="This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
+                        </a>
+                    </p>
+                </div>
+                <div class="right">
+                    <!-- Танкистам - это стеб -->
+                    <p class="comment">Работает на "Joomla! - языке программирования сайтов" &copy;</p>
+                    <!-- Конец стеба -->
+                    <p>
+                        <img src="<%= @settings.url %>/img/logo/html5.png" alt="HTML5" title="HTML5" />
+                        <a href="http://www.sinatrarb.com/"><img src="<%= @settings.url %>/img/logo/sinatra-powered.png" alt="Работает на Sinatra" title="Работает на Sinatra" /></a>
+                    </p>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>

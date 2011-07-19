@@ -1,0 +1,31 @@
+<header class="header">
+    <h1><span class="keyword">class</span> <a href="<%= @settings.url %>/blog" title="Блог">Blog</a> <span class="keyword">&lt;</span> <a href="<%= @settings.url %>" title="Главная">Homepage</a></h1>
+</header>
+<section class="main">
+<% @posts.each do |post| %>
+    <article>
+        <header>
+            <h2><a href="#"><%= post.title %></a></h2>
+        </header>
+        <p class="small">
+            <a href="#" rel="tag" title="Посмотреть все посты с этим тегом">Zend Framework</a>,
+            <a href="#" rel="tag" title="Посмотреть все посты с этим тегом">WebDev</a>
+        </p>
+        <%= post.content %>
+        <p class="small">
+            <span class="left"><%= post.created_at %></span>
+            <span class="right"><a href="#" title="Посмотреть комментарии к этому посту">3 комментария</a></span>
+        </p>
+        <div class="clear"></div>
+    </article>
+<% end %>
+    <div class="pagination">
+        <ul>
+            <li><a href="#">Начало</a></li>
+            <li><a href="#">1</a></li>
+            <li>2</li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">Конец</a></li>
+        </ul>
+    </div>
+</section>

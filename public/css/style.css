@@ -1,0 +1,302 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Tags */
+h1 {
+    font-size: 34px;
+    line-height: 42px
+}
+
+h2 {
+    font-size: 30px;
+    line-height: 38px
+}
+
+h3 {
+    font-size: 26px;
+    line-height: 34px
+}
+
+h4 {
+    font-size: 22px;
+    line-height: 30px
+}
+
+h5 {
+    font-size: 20px;
+    line-height: 28px
+}
+
+h6 {
+    font-size: 18px;
+    line-height: 26px
+}
+
+p {margin: 15px 0}
+
+a {
+    color: #4682B4;
+    text-decoration: underline
+}
+
+    a:hover {
+        color: #696969;
+        text-decoration: underline
+    }
+    
+sup {
+    vertical-align: baseline;
+    position: relative;
+    top: -0.4em
+}
+
+blockquote {
+    padding-left: 20px;
+    border-left: 2px solid #ccc
+}
+
+pre {
+    padding-left: 20px;
+    border-left: 2px solid #ccc
+}
+
+/* Classes */
+.active {
+    text-decoration: none;
+    color: #fff;
+    background: #5fcbf3;
+    border-radius: 10px
+}
+
+.small {font-size: 16px}
+
+.left {float: left}
+
+.right {
+    float: right;
+    text-align: right
+}
+
+.clear {clear: both}
+
+.pagination {text-align: center}
+
+    .pagination ul li {
+        display: inline;
+        margin: 0 5px
+    }
+    
+.gravatar {
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin: 5px 5px 5px 0
+}
+    
+.ajax {
+    text-decoration: none;
+    border-bottom: 1px dashed #4682B4
+}
+    
+    .ajax:hover {
+        text-decoration: none;
+        border-bottom: 1px dashed #696969
+    }
+
+.keyword {color: #4682B4}
+
+.comment {color: #A9A9A9}
+
+    .comment:hover {color: #696969}
+
+.end {font-size: 34px}
+
+.logos {
+    width: 700px;
+    margin: 0 auto
+}
+
+    .logos li {
+        display: inline;
+        float: left;
+        margin: 10px 15px;
+        opacity: 0.7
+    }
+    
+        .logos li:hover {opacity: 1}
+        
+.ribbon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+}
+
+.code {overflow: auto}
+
+/* Main styles */
+
+body {
+    padding: 2% 0;
+    font: 18px/26px Verdana, Tahoma, Arial, Helvetica;
+    color: #696969;
+    background: #fff
+}
+
+    nav {
+        position: fixed;
+        margin: 5px
+    }
+    
+        nav ul li {margin: 15px 0}
+        
+        nav li a {
+            display: box;
+            padding: 5px 10px;
+            text-decoration: none
+        }
+        
+            nav li a:hover {
+                text-decoration: none;
+                color: #fff;
+                background: #5fcbf3;
+                border-radius: 10px
+            }
+
+    .wrapper {
+        width: 960px;
+        margin: 0 auto
+    }
+    
+        .header {
+            width: 960px;
+            height: 50px
+        }
+        
+        .main {width: 960px}
+        
+            .main article {margin: 40px 25px}
+            
+                .main article header {margin-bottom: 25px}
+                
+                .main article ul:not(.logos) {
+                    list-style-type: disc;
+                    margin-left: 40px
+                }
+                
+                    .main article ul li:not(.logos li) {margin: 5px 0}
+                
+                .main article ol {
+                    list-style-type: decimal;
+                    margin-left: 40px
+                }
+                
+                    .main article ol li {margin: 5px 0}
+                
+        #comments {width: 960px}
+        
+            #comments header h3 {margin-left: 25px}
+        
+            #comments article {margin: 30px 25px}
+            
+                #comments article header {margin-bottom: 25px}
+                
+                #comments article p {margin-left: 60px}
+                
+                #comments article blockquote {margin-left: 60px}
+                
+        #comment-form {
+            width: 960px;
+            margin: 20px 0
+        }
+        
+            #comment-form header {margin: 0 0 25px 25px}
+            
+            #comment-form form {text-align: center}
+        
+                #comment-form form div {margin: 10px 0}
+                
+                    #comment-form form textarea,
+                    #comment-form form input[type="text"],
+                    #comment-form form input[type="email"],
+                    #comment-form form input[type="url"],
+                    #comment-form form input[type="submit"] {
+                        font: 18px/26px Verdana, Tahoma, Arial, Helvetica;
+                        color: #696969
+                    }
+                    
+                    #comment-form form textarea,
+                    #comment-form form input[type="text"],
+                    #comment-form form input[type="email"],
+                    #comment-form form input[type="url"] {
+                        padding: 5px;
+                        background: #fff;
+                        border: 1px solid #ccc
+                    }
+                    
+                        #comment-form form textarea:focus,
+                        #comment-form form input[type="text"]:focus,
+                        #comment-form form input[type="email"]:focus,
+                        #comment-form form input[type="url"]:focus {border: 1px solid #696969}
+                    
+                    #comment-form form textarea {
+                        width: 635px;
+                        height: 200px
+                    }
+                    
+                    #comment-form input[type="text"],
+                    #comment-form form input[type="email"],
+                    #comment-form form input[type="url"] {
+                        width: 200px;
+                        height: 20px
+                    }
+                    
+                    #comment-form input[type="submit"] {cursor: pointer}
+            
+        footer {font-size: 16px}
