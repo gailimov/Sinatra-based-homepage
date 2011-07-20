@@ -15,7 +15,7 @@
                 <li><a href="<%= @settings.url %>"<%= ' class="active"' if @uri == '/' %>>/home</a></li>
                 <li><a href="<%= @settings.url %>/blog"<%= ' class="active"' if @uri == '/blog' %>>/blog</a></li>
             <% @pages.each do |page| %>
-                <li><a href="<%= @settings.url + '/' + page.slug %>"<%= ' class="active"' if @uri == page.slug %>><%= page.title %></a></li>
+                <li><a href="<%= @settings.url + '/' + page.slug %>"<%= ' class="active"' if @uri == '/' + page.slug %>><%= page.title %></a></li>
             <% end %>
             </ul>
         </nav>

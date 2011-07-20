@@ -5,7 +5,7 @@
 <% @posts.each do |post| %>
     <article>
         <header>
-            <h2><a href="#"><%= post.title %></a></h2>
+            <h2><a href="<%= @settings.url %>/blog/<%= post.slug %>"><%= post.title %></a></h2>
         </header>
         <p class="small">
             <a href="#" rel="tag" title="Посмотреть все посты с этим тегом">Zend Framework</a>,
@@ -20,12 +20,11 @@
     </article>
 <% end %>
     <div class="pagination">
-        <ul>
-            <li><a href="#">Начало</a></li>
-            <li><a href="#">1</a></li>
-            <li>2</li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">Конец</a></li>
-        </ul>
+        <% if @prev_page >= 1 %>
+            <span>&larr; <a href="<%= @settings.url %>/blog/page/<%= @prev_page %>">Новые посты</a></span>
+        <% end %>
+        <% if @next_page <= @total %>
+            <span><a href="<%= @settings.url %>/blog/page/<%= @next_page %>">Старые посты</a> &rarr;</span>
+        <% end %>
     </div>
 </section>

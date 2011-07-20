@@ -1,0 +1,85 @@
+<header class="header">
+    <h1><span class="keyword">class</span> <a href="<%= @settings.url %>/blog" title="Блог">Blog</a> <span class="keyword">&lt;</span> <a href="<%= @settings.url %>" title="Главная">Homepage</a></h1>
+</header>
+<section class="main">
+    <article>
+        <header>
+            <h2><%= @post.title %></h2>
+        </header>
+        <p class="small">
+            <a href="#" rel="tag" title="Посмотреть все посты с этим тегом">Zend Framework</a>,
+            <a href="#" rel="tag" title="Посмотреть все посты с этим тегом">WebDev</a>
+        </p>
+        <%= @post.content %>
+        <p class="small"><%= @post.created_at %></p>
+    </article>
+</section> <!-- .main -->
+<section id="comments">
+    <header>
+        <h3>Комментарии <sup><a href="#" title="Получать комментарии по RSS">RSS</a></sup></h3>
+    </header>
+    <article>
+        <p>Комментариев нет</p>
+    </article>
+    <article id="comment-1">
+        <header class="vcard">
+            <h4><a href="#comment-1" title="Постоянная ссылка на комментарий">#1</a> <span class="fn"><a href="#" class="url">ZeroXor</a></span></h4>
+        </header>
+        <img src="#" class="gravatar" alt="ZeroXor" title="ZeroXor" />
+        <p>Даосизм, как следует из вышесказанного, ментально преобразует закон внешнего мира, хотя в официозе принято обратное. Даосизм осмысленно трансформирует здравый смысл, не учитывая мнения авторитетов. Суждение непредсказуемо. Современная критика принимает во внимание гедонизм, изменяя привычную реальность. Освобождение выводит мир, ломая рамки привычных представлений. Наряду с этим сомнение оспособляет гравитационный парадокс, не учитывая мнения авторитетов.</p>
+<blockquote>Гетерономная этика преобразует типичный бабувизм, отрицая очевидное. Вещь в себе вырождена. Интересно отметить, что эклектика индуцирует гравитационный парадокс, при этом буквы А, В, I, О символизируют соответственно общеутвердительное, общеотрицательное, частноутвердительное и частноотрицательное суждения. Язык образов индуцирует сенсибельный мир, учитывая опасность, которую представляли собой писания Дюринга для не окрепшего еще немецкого рабочего движения<br />
+Гетерономная этика преобразует типичный бабувизм, отрицая очевидное. Вещь в себе вырождена. Интересно отметить, что эклектика индуцирует гравитационный парадокс, при этом буквы А, В, I, О символизируют соответственно общеутвердительное, общеотрицательное, частноутвердительное и частноотрицательное суждения. Язык образов индуцирует сенсибельный мир, учитывая опасность, которую представляли собой писания Дюринга для не окрепшего еще немецкого рабочего движения.</blockquote>
+<p>Дилемма индуцирует непредвиденный конфликт, не учитывая мнения авторитетов. Принцип восприятия представляет собой неоднозначный даосизм, хотя в официозе принято обратное. Аджива амбивалентно раскладывает на элементы смысл жизни, открывая новые горизонты. Отношение к современности рассматривается знак, при этом буквы А, В, I, О символизируют соответственно общеутвердительное, общеотрицательное, частноутвердительное и частноотрицательное суждения. Гедонизм ясен не всем. Ато джива контролирует трансцендентальный принцип восприятия, хотя в официозе принято обратное.</p>
+        <p class="small">
+            <span class="left">12 июля 2011 года в 22:47</span>
+            <span class="right"><a href="#" onclick="reply('[reply#comment-1]ZeroXor[/reply]');return false;" class="ajax">Ответить</a></span>
+        </p>
+        <div class="clear"></div>
+    </article>
+    <article id="comment-2">
+        <header class="vcard">
+            <h4><a href="#comment-2" title="Постоянная ссылка на комментарий">#2</a> <span class="fn">Manshook</span></h4>
+        </header>
+        <img src="#" class="gravatar" alt="Manshook" title="Manshook" />
+        <p>Даосизм :)</p>
+        <p class="small">
+            <span class="left">12 июля 2011 года в 23:10</span>
+            <span class="right"><a href="#" onclick="reply('[reply#comment-2]Manshook[/reply]');return false;" class="ajax">Ответить</a></span>
+        </p>
+        <div class="clear"></div>
+    </article>
+    <article id="comment-3">
+        <header class="vcard">
+            <h4><a href="#comment-3" title="Постоянная ссылка на комментарий">#3</a> <span class="fn"><a href="#" class="url">Никита Олегович</a></span></h4>
+        </header>
+        <img src="#" class="gravatar" alt="Никита Олегович" title="Никита Олегович" />
+        <p>Даосизм, как следует из вышесказанного, ментально преобразует закон внешнего мира, хотя в официозе принято обратное. Даосизм осмысленно трансформирует здравый смысл, не учитывая мнения авторитетов. Суждение непредсказуемо. Современная критика принимает во внимание гедонизм, изменяя привычную реальность. Освобождение выводит мир, ломая рамки привычных представлений. Наряду с этим сомнение оспособляет гравитационный парадокс, не учитывая мнения авторитетов.</p>
+        <p class="small">
+            <span class="left">12 июля 2011 года в 23:11</span>
+            <span class="right"><a href="#" onclick="reply('[reply#comment-3]Никита Олегович[/reply]');return false;" class="ajax">Ответить</a></span>
+        </p>
+        <div class="clear"></div>
+    </article>
+</section> <!-- #comments -->
+<section id="comment-form">
+    <header>
+        <h3>Оставить комментарий</h3>
+    </header>
+    <form action="#" method="post">
+        <div><textarea name="comment[content]" id="comment-content" placeholder="Комментарий *" required></textarea></div>
+        <div>
+            <input type="text" name="comment[name]" placeholder="Представьтесь *" required />
+            <input type="email" name="comment[email]" placeholder="Email *" required />
+            <input type="url" name="comment[url]" placeholder="Блог" />
+        </div>
+        <div>
+            <input type="checkbox" name="subscribe" id="subscribe" value="1" checked />
+            <label for="subscribe">Получать уведомления о новых комментариях</label>
+        </div>
+        <div>
+            <input type="submit" name="add" value="Добавить комментарий" />
+            или
+            <input type="submit" name="preview" value="посмотреть, что получится" />
+        </div>
+    </form>
+</section> <!-- #comment-form -->

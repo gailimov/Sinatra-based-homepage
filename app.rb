@@ -19,6 +19,8 @@ before do
   @title = @settings.title
   @description = @settings.description
   @pages = Post.all(:kind => 'page')
+  @limit = 10
+  @total = ((Post.count(:kind => 'post') - 1) / @limit) + 1
 end
 
 get '/' do
@@ -26,8 +28,37 @@ get '/' do
 end
 
 get '/blog' do
-  @posts = Post.all(:kind => 'post', :order => [ :created_at.desc, :id.desc ])
+  @posts = Post.all(:kind => 'post', :order => [ :created_at.desc, :id.desc ], :offset => 0, :limit => @limit)
   @title = 'Blog :: ' + @title
   @description = 'Blog ' + @description
+  @next_page = 2
+  @prev_page = 0
   erb :'blog/index'
+end
+
+# TODO: create helper for pagination
+get %r{/blog/page/([\d]+)} do |page|
+  page = 1 if page.empty? || page.to_i <= 0
+  page = @total if page.to_i > @total
+  offset = (page.to_i - 1) * @limit
+  @posts = Post.all(:kind => 'post', :order => [ :created_at.desc, :id.desc ], :offset => offset, :limit => @limit)
+  @title = 'Blog :: ' + @title
+  @description = 'Blog ' + @description
+  @next_page = page.to_i + 1
+  @prev_page = @next_page - 2
+  erb :'blog/index'
+end
+
+get '/:slug' do
+  @page = Post.first('slug' => params[:slug])
+  @title = @page.title + ' :: ' + @title
+  @description = @page.description
+  erb :page
+end
+
+get '/blog/:slug' do
+  @post = Post.first('slug' => params[:slug])
+  @title = @post.title + ' :: ' + @title
+  @description = @post.description
+  erb :'blog/post'
 end
