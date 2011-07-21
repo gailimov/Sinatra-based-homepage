@@ -1,6 +1,5 @@
 require 'sinatra'
 require 'data_mapper'
-require 'erb'
 
 set :views, File.dirname(__FILE__) + '/app/views'
 
@@ -19,8 +18,32 @@ before do
   @title = @settings.title
   @description = @settings.description
   @pages = Post.all(:kind => 'page')
-  @limit = 10
-  @total = ((Post.count(:kind => 'post') - 1) / @limit) + 1
+  @limit = 2
+end
+
+helpers do
+  # Prepare pagination
+  #
+  # Param: (int) page - Page
+  # Return: (hash) pager - Hash of pagination data
+  def paginate(page = 1)
+    pager = {}
+    pager['total'] = ((Post.count(:kind => 'post') - 1) / @limit) + 1
+
+    if page.to_i <= 0
+      pager['page'] = 1
+    elsif page.to_i > pager['total']
+      pager['page'] = pager['total']
+    else
+      pager['page'] = page.to_i
+    end
+
+    pager['offset'] = (pager['page'] - 1) * @limit
+    pager['next_page'] = pager['page'] + 1
+    pager['prev_page'] = pager['next_page'] - 2
+
+    return pager
+  end
 end
 
 get '/' do
@@ -31,21 +54,15 @@ get '/blog' do
   @posts = Post.all(:kind => 'post', :order => [ :created_at.desc, :id.desc ], :offset => 0, :limit => @limit)
   @title = 'Blog :: ' + @title
   @description = 'Blog ' + @description
-  @next_page = 2
-  @prev_page = 0
+  @pager = paginate
   erb :'blog/index'
 end
 
-# TODO: create helper for pagination
 get %r{/blog/page/([\d]+)} do |page|
-  page = 1 if page.empty? || page.to_i <= 0
-  page = @total if page.to_i > @total
-  offset = (page.to_i - 1) * @limit
-  @posts = Post.all(:kind => 'post', :order => [ :created_at.desc, :id.desc ], :offset => offset, :limit => @limit)
+  @pager = paginate(page)
+  @posts = Post.all(:kind => 'post', :order => [ :created_at.desc, :id.desc ], :offset => @pager['offset'], :limit => @limit)
   @title = 'Blog :: ' + @title
   @description = 'Blog ' + @description
-  @next_page = page.to_i + 1
-  @prev_page = @next_page - 2
   erb :'blog/index'
 end
 

@@ -20,11 +20,11 @@
     </article>
 <% end %>
     <div class="pagination">
-        <% if @prev_page >= 1 %>
-            <span>&larr; <a href="<%= @settings.url %>/blog/page/<%= @prev_page %>">Новые посты</a></span>
+        <% if @pager['prev_page'] >= 1 %>
+            <span>&larr; <a href="<%= @settings.url %>/blog/page/<%= @pager['prev_page'] %>">Новые посты</a></span>
         <% end %>
-        <% if @next_page <= @total %>
-            <span><a href="<%= @settings.url %>/blog/page/<%= @next_page %>">Старые посты</a> &rarr;</span>
+        <% if @pager['next_page'] <= @pager['total'] %>
+            <span><a href="<%= @settings.url %>/blog/page/<%= @pager['next_page'] %>">Старые посты</a> &rarr;</span>
         <% end %>
     </div>
 </section>
