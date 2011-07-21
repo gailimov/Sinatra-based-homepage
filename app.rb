@@ -11,6 +11,7 @@ Dir['app/models/*.rb'].each { |x| load x }
 # Automatically create the tables
 Post.auto_migrate! unless Post.storage_exists?
 Setting.auto_migrate! unless Setting.storage_exists?
+Comment.auto_migrate! unless Comment.storage_exists?
 
 before do
   @uri = request.path_info
