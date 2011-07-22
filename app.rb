@@ -1,5 +1,9 @@
+# coding: utf-8
+
 require 'sinatra'
 require 'data_mapper'
+require 'digest/md5'
+require 'russian'
 
 set :views, File.dirname(__FILE__) + '/app/views'
 
@@ -44,6 +48,38 @@ helpers do
     pager['prev_page'] = pager['next_page'] - 2
 
     return pager
+  end
+
+  # Cut text
+  #
+  # Param: (string) text - Text
+  # Return: (string) - Cutted text
+  def cut(text)
+    text.gsub!('<p><!-- pagebreak --></p>', '<!-- pagebreak -->')
+    text = text.split('<!-- pagebreak -->')
+    return text[0]
+  end
+
+  # Remove cut tag
+  #
+  # Param: (string) text - Text
+  # Return: (string) Text without cut tag
+  def remove_cut_tag(text)
+    if text.include?('<!-- pagebreak -->')
+      text.gsub!('<p><!-- pagebreak --></p>', '')
+      text.gsub!('<!-- pagebreak -->', '')
+    end
+  end
+
+  # Show gravatar
+  #
+  # Param: (string) email - Email
+  # Param: (string) default - Default gravatar
+  # Param: (int) size - Size
+  # Param: (string) rating - Rating
+  # Return: string - Gravatar's URI
+  def gravatar(email, default = 'identicon', size = 50, rating = 'pg')
+    "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email.downcase)}?s=#{size}&amp;d=#{default}&amp;=#{rating}"
   end
 end
 

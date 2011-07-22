@@ -11,10 +11,10 @@
             <a href="#" rel="tag" title="Посмотреть все посты с этим тегом">Zend Framework</a>,
             <a href="#" rel="tag" title="Посмотреть все посты с этим тегом">WebDev</a>
         </p>
-        <%= post.content %>
+        <%= cut(post.content) %>
         <p class="small">
-            <span class="left"><%= post.created_at %></span>
-            <span class="right"><a href="#" title="Посмотреть комментарии к этому посту">3 комментария</a></span>
+            <span class="left"><%= Russian::strftime(post.created_at, "%d %B %Y года") %></span>
+            <span class="right"><a href="<%= @settings.url %>/blog/<%= post.slug %>#comments" title="Посмотреть комментарии к этому посту"><%= post.comments.count.to_s + ' ' + Russian.p(post.comments.count, 'комментарий', 'комментария', 'комментариев') %></a></span>
         </p>
         <div class="clear"></div>
     </article>

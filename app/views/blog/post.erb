@@ -10,8 +10,8 @@
             <a href="#" rel="tag" title="Посмотреть все посты с этим тегом">Zend Framework</a>,
             <a href="#" rel="tag" title="Посмотреть все посты с этим тегом">WebDev</a>
         </p>
-        <%= @post.content %>
-        <p class="small"><%= @post.created_at %></p>
+        <%= remove_cut_tag(@post.content) %>
+        <p class="small"><%= Russian::strftime(@post.created_at, "%d %B %Y года") %></p>
     </article>
 </section> <!-- .main -->
 <section id="comments">
@@ -26,12 +26,16 @@
     <% i = 0; @post.comments.each do |comment|; i += 1 %>
         <article id="comment-<%= comment.id %>">
             <header class="vcard">
+            <% if comment.url.empty? %>
+                <h4><a href="#comment-<%= comment.id %>" title="Постоянная ссылка на комментарий">#<%= i %></a> <span class="fn"><%= comment.author %></span></h4>
+            <% else %>
                 <h4><a href="#comment-<%= comment.id %>" title="Постоянная ссылка на комментарий">#<%= i %></a> <span class="fn"><a href="<%= comment.url %>" class="url"><%= comment.author %></a></span></h4>
+            <% end %>
             </header>
-            <img src="#" class="gravatar" alt="<%= comment.author %>" title="<%= comment.author %>" />
+            <img src="<%= gravatar(comment.email) %>" class="gravatar" alt="<%= comment.author %>" title="<%= comment.author %>" />
             <p><%= comment.content %></p>
             <p class="small">
-                <span class="left"><%= comment.created_at %></span>
+                <span class="left"><%= Russian::strftime(comment.created_at, "%d %B %Y года, в %H:%M") %></span>
                 <span class="right"><a href="#" onclick="reply('[reply#comment-<%= comment.id %>]<%= comment.author %>[/reply]');return false;" class="ajax">Ответить</a></span>
             </p>
             <div class="clear"></div>
