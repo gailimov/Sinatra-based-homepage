@@ -8,8 +8,9 @@
             <h2><a href="<%= @settings.url %>/blog/<%= post.slug %>"><%= post.title %></a></h2>
         </header>
         <p class="small">
-            <a href="#" rel="tag" title="Посмотреть все посты с этим тегом">Zend Framework</a>,
-            <a href="#" rel="tag" title="Посмотреть все посты с этим тегом">WebDev</a>
+        <% post.tags.each do |tag| %>
+            <a href="<%= @settings.url %>/blog/tag/<%= tag.slug %>" rel="tag" title="Посмотреть все посты с этим тегом"><%= tag.tag %></a>
+        <% end %>
         </p>
         <%= cut(post.content) %>
         <p class="small">

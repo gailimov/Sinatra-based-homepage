@@ -16,6 +16,8 @@ Dir['app/models/*.rb'].each { |x| load x }
 Post.auto_migrate! unless Post.storage_exists?
 Setting.auto_migrate! unless Setting.storage_exists?
 Comment.auto_migrate! unless Comment.storage_exists?
+Tag.auto_migrate! unless Tag.storage_exists?
+Tagging.auto_migrate! unless Tagging.storage_exists?
 
 before do
   @uri = request.path_info

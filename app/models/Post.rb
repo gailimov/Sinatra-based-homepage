@@ -10,4 +10,6 @@ class Post
   property :kind, String, :length => 5, :required => true
 
   has n, :comments
+  has n, :taggings
+  has n, :tags, :through => :taggings
 end
