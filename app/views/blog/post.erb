@@ -48,11 +48,19 @@
     <header>
         <h3>Оставить комментарий</h3>
     </header>
-    <form action="#" method="post">
-        <div><textarea name="comment[content]" id="comment-content" placeholder="Комментарий *" required></textarea></div>
+    <% if @errors %>
+        <div class="errors">
+            <p>Необходимо исправить следующие ошибки:</p>
+            <ul>
+                <%= @errors %>
+            </ul>
+        </div>
+    <% end %>
+    <form action="<%= @settings.url %>/blog/<%= @post.slug %>/#comment-form" method="post">
+        <div><textarea name="comment[content]" id="comment-content" placeholder="Комментарий *"></textarea></div>
         <div>
-            <input type="text" name="comment[name]" placeholder="Представьтесь *" required />
-            <input type="email" name="comment[email]" placeholder="Email *" required />
+            <input type="text" name="comment[author]" placeholder="Представьтесь *" />
+            <input type="email" name="comment[email]" placeholder="Email *" />
             <input type="url" name="comment[url]" placeholder="Блог" />
         </div>
         <div>

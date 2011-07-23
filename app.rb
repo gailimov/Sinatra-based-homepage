@@ -4,20 +4,28 @@ require 'sinatra'
 require 'data_mapper'
 require 'digest/md5'
 require 'russian'
+require 'ipaddr'
 
-set :views, File.dirname(__FILE__) + '/app/views'
+configure do
+  enable :sessions
 
-DataMapper.setup(:default, "sqlite://#{Dir.pwd}/data/blog.db")
+  set :views, File.dirname(__FILE__) + '/app/views'
 
-# Load the models
-Dir['app/models/*.rb'].each { |x| load x }
+  DataMapper.setup(:default, "sqlite://#{Dir.pwd}/data/blog.db")
 
-# Automatically create the tables
-Post.auto_migrate! unless Post.storage_exists?
-Setting.auto_migrate! unless Setting.storage_exists?
-Comment.auto_migrate! unless Comment.storage_exists?
-Tag.auto_migrate! unless Tag.storage_exists?
-Tagging.auto_migrate! unless Tagging.storage_exists?
+  # Load the models
+  Dir['app/models/*.rb'].each { |x| load x }
+
+  # Automatically create the tables
+  Post.auto_migrate! unless Post.storage_exists?
+  Setting.auto_migrate! unless Setting.storage_exists?
+  Comment.auto_migrate! unless Comment.storage_exists?
+  Tag.auto_migrate! unless Tag.storage_exists?
+  Tagging.auto_migrate! unless Tagging.storage_exists?
+
+  # Raise exceptions
+  #DataMapper::Model.raise_on_save_failure = true
+end
 
 before do
   @uri = request.path_info
@@ -106,15 +114,42 @@ get %r{/blog/page/([\d]+)} do |page|
 end
 
 get '/:slug' do
-  @page = Post.first('slug' => params[:slug])
+  @page = Post.first('slug' => params[:slug], 'kind' => 'page')
   @title = @page.title + ' :: ' + @title
   @description = @page.description
   erb :page
 end
 
 get '/blog/:slug' do
-  @post = Post.first('slug' => params[:slug])
+  @post = Post.first('slug' => params[:slug], 'kind' => 'post')
   @title = @post.title + ' :: ' + @title
   @description = @post.description
+  @errors = session[:errors]
+  session.clear
   erb :'blog/post'
+end
+
+post '/blog/:slug/*' do
+  post = Post.first(:slug => params[:slug])
+
+  ip = IPAddr.new(request.ip)
+  params['comment']['ip'] = ip
+  params['comment']['user_agent'] = request.user_agent
+  params['comment']['post_id'] = post.id
+
+  comment = post.comments.new(params['comment'])
+
+  # Validation
+  # If validation passed and comment has been saved - redirect back to post page
+  if comment.save
+    redirect "#{@settings.url}/blog/#{params[:slug]}"
+  else
+    # ... else save errors into session and redirect to GET route
+    errors = ''
+    comment.errors.each do |key, value|
+      errors << "<li>#{value}</li>\n"
+    end
+    session[:errors] = errors
+    redirect "#{@settings.url}/blog/#{params[:slug]}"
+  end
 end
