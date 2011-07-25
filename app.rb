@@ -37,6 +37,10 @@ before do
 end
 
 helpers do
+  include Rack::Utils
+
+  alias_method :h, :escape_html
+
   # Prepare pagination
   #
   # Param: (int) page - Page
@@ -88,8 +92,19 @@ helpers do
   # Param: (int) size - Size
   # Param: (string) rating - Rating
   # Return: string - Gravatar's URI
-  def gravatar(email, default = 'identicon', size = 50, rating = 'pg')
+  def gravatar_for(email, default = 'identicon', size = 50, rating = 'pg')
     "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email.downcase)}?s=#{size}&amp;d=#{default}&amp;=#{rating}"
+  end
+
+  # Set multiple cookies
+  #
+  # Param: (hash) data - Name => Value
+  # Param: (string) path - Path
+  # Param: (int) expires - Expires time
+  def set_multiple_cookies(data, path, expires)
+    data.each do |key, value|
+      response.set_cookie(key, { :value => value, :path => path, :expires => expires })
+    end
   end
 end
 
@@ -124,7 +139,9 @@ get '/blog/:slug' do
   @post = Post.first('slug' => params[:slug], 'kind' => 'post')
   @title = @post.title + ' :: ' + @title
   @description = @post.description
+  @cookies = request.cookies
   @errors = session[:errors]
+  @comment = session[:comment]
   session.clear
   erb :'blog/post'
 end
@@ -136,6 +153,11 @@ post '/blog/:slug/*' do
   params['comment']['ip'] = ip
   params['comment']['user_agent'] = request.user_agent
   params['comment']['post_id'] = post.id
+
+  set_multiple_cookies({ :homepage_comment_author => params[:comment][:author],
+                         :homepage_comment_email  => params[:comment][:email],
+                         :homepage_comment_url    => params[:comment][:url] },
+                       '/', Time.now + 3600 * 24 * 365)
 
   comment = post.comments.new(params['comment'])
 
@@ -150,6 +172,7 @@ post '/blog/:slug/*' do
       errors << "<li>#{value}</li>\n"
     end
     session[:errors] = errors
+    session[:comment] = params[:comment][:content]
     redirect "#{@settings.url}/blog/#{params[:slug]}"
   end
 end

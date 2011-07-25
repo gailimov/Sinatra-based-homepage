@@ -33,8 +33,8 @@
                 <h4><a href="#comment-<%= comment.id %>" title="Постоянная ссылка на комментарий">#<%= i %></a> <span class="fn"><a href="<%= comment.url %>" class="url"><%= comment.author %></a></span></h4>
             <% end %>
             </header>
-            <img src="<%= gravatar(comment.email) %>" class="gravatar" alt="<%= comment.author %>" title="<%= comment.author %>" />
-            <p><%= comment.content %></p>
+            <img src="<%= gravatar_for comment.email %>" class="gravatar" alt="<%= comment.author %>" title="<%= comment.author %>" />
+            <p><%= h comment.content %></p>
             <p class="small">
                 <span class="left"><%= Russian::strftime(comment.created_at, "%d %B %Y года, в %H:%M") %></span>
                 <span class="right"><a href="#" onclick="reply('[reply#comment-<%= comment.id %>]<%= comment.author %>[/reply]');return false;" class="ajax">Ответить</a></span>
@@ -57,20 +57,18 @@
         </div>
     <% end %>
     <form action="<%= @settings.url %>/blog/<%= @post.slug %>/#comment-form" method="post">
-        <div><textarea name="comment[content]" id="comment-content" placeholder="Комментарий *"></textarea></div>
+        <div><textarea name="comment[content]" id="comment-content" placeholder="Комментарий *" required><% if @comment %><%= @comment %><% end %></textarea></div>
         <div>
-            <input type="text" name="comment[author]" placeholder="Представьтесь *" />
-            <input type="email" name="comment[email]" placeholder="Email *" />
-            <input type="url" name="comment[url]" placeholder="Блог" />
+            <input type="text" name="comment[author]" placeholder="Представьтесь *" value="<%= @cookies['homepage_comment_author'] %>" required />
+            <input type="email" name="comment[email]" placeholder="Email *" value="<%= @cookies['homepage_comment_email'] %>" required />
+            <input type="url" name="comment[url]" placeholder="Блог" value="<%= @cookies['homepage_comment_url'] %>" />
         </div>
         <div>
             <input type="checkbox" name="subscribe" id="subscribe" value="1" checked />
             <label for="subscribe">Получать уведомления о новых комментариях</label>
         </div>
         <div>
-            <input type="submit" name="add" value="Добавить комментарий" />
-            или
-            <input type="submit" name="preview" value="посмотреть, что получится" />
+            <input type="submit" value="Добавить комментарий" />
         </div>
     </form>
 </section> <!-- #comment-form -->
