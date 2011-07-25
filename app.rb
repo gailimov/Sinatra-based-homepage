@@ -2,9 +2,10 @@
 
 require 'sinatra'
 require 'data_mapper'
-require 'digest/md5'
+require 'digest'
 require 'russian'
 require 'ipaddr'
+require 'redcloth'
 
 configure do
   enable :sessions
@@ -112,7 +113,7 @@ get '/' do
   erb :index
 end
 
-get '/blog' do
+get '/blog/?' do
   @posts = Post.all(:kind => 'post', :order => [ :created_at.desc, :id.desc ], :offset => 0, :limit => @limit)
   @title = 'Blog :: ' + @title
   @description = 'Blog ' + @description
@@ -128,14 +129,14 @@ get %r{/blog/page/([\d]+)} do |page|
   erb :'blog/index'
 end
 
-get '/:slug' do
+get '/:slug/?' do
   @page = Post.first('slug' => params[:slug], 'kind' => 'page')
   @title = @page.title + ' :: ' + @title
   @description = @page.description
   erb :page
 end
 
-get '/blog/:slug' do
+get '/blog/:slug/?' do
   @post = Post.first('slug' => params[:slug], 'kind' => 'post')
   @title = @post.title + ' :: ' + @title
   @description = @post.description
@@ -149,10 +150,10 @@ end
 post '/blog/:slug/*' do
   post = Post.first(:slug => params[:slug])
 
-  ip = IPAddr.new(request.ip)
-  params['comment']['ip'] = ip
-  params['comment']['user_agent'] = request.user_agent
-  params['comment']['post_id'] = post.id
+  params[:comment][:created_at] = Time.new
+  params[:comment][:ip] = IPAddr.new(request.ip)
+  params[:comment][:user_agent] = request.user_agent
+  params[:comment][:post_id] = post.id
 
   set_multiple_cookies({ :homepage_comment_author => params[:comment][:author],
                          :homepage_comment_email  => params[:comment][:email],

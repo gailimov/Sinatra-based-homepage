@@ -251,7 +251,7 @@ body {
             
                 #comments article header {margin-bottom: 25px}
                 
-                #comments article p {margin-left: 60px}
+                #comments article p:not(#comments article blockquote p) {margin-left: 60px}
                 
                 #comments article blockquote {margin-left: 60px}
                 

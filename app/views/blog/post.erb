@@ -34,7 +34,7 @@
             <% end %>
             </header>
             <img src="<%= gravatar_for comment.email %>" class="gravatar" alt="<%= comment.author %>" title="<%= comment.author %>" />
-            <p><%= h comment.content %></p>
+            <%= RedCloth.new(comment.content, [:filter_html]).to_html.gsub(/\[reply#(.+?)\](.+?)\[\/reply\]/, "@<a href=\"#\\1\" class=\"reply\" title=\"Перейти к комментарию\">\\2</a>") %>
             <p class="small">
                 <span class="left"><%= Russian::strftime(comment.created_at, "%d %B %Y года, в %H:%M") %></span>
                 <span class="right"><a href="#" onclick="reply('[reply#comment-<%= comment.id %>]<%= comment.author %>[/reply]');return false;" class="ajax">Ответить</a></span>
@@ -46,7 +46,7 @@
 </section> <!-- #comments -->
 <section id="comment-form">
     <header>
-        <h3>Оставить комментарий</h3>
+        <h3>Оставить комментарий (<a href="http://ru.wikipedia.org/wiki/Textile_(язык_разметки)" title="Простой и удобный язык разметки">Textile</a>)</h3>
     </header>
     <% if @errors %>
         <div class="errors">
