@@ -17,6 +17,10 @@ class Comment
 
   belongs_to :post
 
+  def self.approved
+    all(:approved => 1)
+  end
+
   validates_presence_of :author, :message => 'Представьтесь, пожалуйста'
   validates_presence_of :email, :message => 'Введите email, пожалуйста'
   validates_presence_of :content, :message => 'Введите комментарий, пожалуйста'

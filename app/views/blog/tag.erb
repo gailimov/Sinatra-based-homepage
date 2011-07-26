@@ -2,7 +2,7 @@
     <h1><span class="keyword">class</span> <a href="<%= @settings.url %>/blog" title="Блог">Blog</a> <span class="keyword">&lt;</span> <a href="<%= @settings.url %>" title="Главная">Homepage</a></h1>
 </header>
 <section class="main">
-<% @posts.each do |post| %>
+<% @tag.posts.each do |post| %>
     <article>
         <header>
             <h2><a href="<%= @settings.url %>/blog/<%= post.slug %>"><%= post.title %></a></h2>
@@ -20,12 +20,4 @@
         <div class="clear"></div>
     </article>
 <% end %>
-    <div class="pagination">
-        <% if @pager['prev_page'] >= 1 %>
-            <span>&larr; <a href="<%= @settings.url %>/blog/page/<%= @pager['prev_page'] %>">Новые посты</a></span>
-        <% end %>
-        <% if @pager['next_page'] <= @pager['total'] %>
-            <span><a href="<%= @settings.url %>/blog/page/<%= @pager['next_page'] %>">Старые посты</a> &rarr;</span>
-        <% end %>
-    </div>
 </section>

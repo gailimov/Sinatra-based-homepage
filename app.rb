@@ -177,3 +177,10 @@ post '/blog/:slug/*' do
     redirect "#{@settings.url}/blog/#{params[:slug]}"
   end
 end
+
+get '/blog/tag/:slug/?' do
+  @tag = Tag.first(:slug => params[:slug])
+  @title = @tag.tag + ' :: ' + @title
+  @description = @tag.tag + ' ' + @description
+  erb :'blog/tag'
+end
