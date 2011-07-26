@@ -184,6 +184,10 @@ pre {
 
 .errors {text-align: center}
 
+.cloud {list-style-type: none}
+
+    .cloud li {display: inline}
+
 /* Main styles */
 
 body {
@@ -229,7 +233,7 @@ body {
             
                 .main article header {margin-bottom: 25px}
                 
-                .main article ul:not(.logos) {
+                .main article ul:not(.logos, .cloud) {
                     list-style-type: disc;
                     margin-left: 40px
                 }

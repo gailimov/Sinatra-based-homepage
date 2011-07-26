@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <meta name="description" content="<%= @description %>" />
         <link rel="stylesheet" href="<%= @settings.url %>/css/style.css" media="screen" />
+        <script src="<%= @settings.url %>/js/jquery-1.6.2.min.js"></script>
         <script src="<%= @settings.url %>/js/script.js"></script>
         <title><%= @title %></title>
     </head>
@@ -14,7 +15,10 @@
         <nav>
             <ul>
                 <li><a href="<%= @settings.url %>"<%= ' class="active"' if @uri == '/' %>>/home</a></li>
-                <li><a href="<%= @settings.url %>/blog"<%= ' class="active"' if @uri == '/blog' %>>/blog</a></li>
+                <li><a href="<%= @settings.url %>/blog"<%= ' class="active"' if @uri.include?('/blog') %>>/blog</a></li>
+            <% if @uri.include?('blog') %>
+                <li><a href="<%= @settings.url %>/blog/tag/">Теги</a></li>
+            <% end %>
             <% @pages.each do |page| %>
                 <li><a href="<%= @settings.url + '/' + page.slug %>"<%= ' class="active"' if @uri == '/' + page.slug %>><%= page.title %></a></li>
             <% end %>

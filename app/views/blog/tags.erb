@@ -1,0 +1,15 @@
+<header class="header">
+    <h1><span class="keyword">class</span> <a href="<%= @settings.url %>/blog" title="Блог">Blog</a> <span class="keyword">&lt;</span> <a href="<%= @settings.url %>" title="Главная">Homepage</a></h1>
+</header>
+<section class="main">
+    <article>
+        <header>
+            <h2>Теги</h2>
+        </header>
+        <ul class="cloud">
+        <% @tags.each do |tag| %>
+            <li><a href="<%= @settings.url %>/blog/tag/<%= tag.slug %>" title="Посмотреть все посты (<%= tag.posts.count %>) с этим тегом"><%= tag.tag %></a></li>
+        <% end %>
+        </ul>
+    </article>
+</section>

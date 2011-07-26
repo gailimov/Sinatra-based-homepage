@@ -48,19 +48,19 @@
     <header>
         <h3>Оставить комментарий (<a href="http://ru.wikipedia.org/wiki/Textile_(язык_разметки)" title="Простой и удобный язык разметки">Textile</a>)</h3>
     </header>
-    <% if @errors %>
-        <div class="errors">
+    <div class="errors">
+        <% if @errors %>
             <p>Необходимо исправить следующие ошибки:</p>
             <ul>
                 <%= @errors %>
             </ul>
-        </div>
-    <% end %>
+        <% end %>
+    </div>
     <form action="<%= @settings.url %>/blog/<%= @post.slug %>/#comment-form" method="post">
         <div><textarea name="comment[content]" id="comment-content" placeholder="Комментарий *" required><% if @comment %><%= @comment %><% end %></textarea></div>
         <div>
-            <input type="text" name="comment[author]" placeholder="Представьтесь *" value="<%= @cookies['homepage_comment_author'] %>" required />
-            <input type="email" name="comment[email]" placeholder="Email *" value="<%= @cookies['homepage_comment_email'] %>" required />
+            <input type="text" name="comment[author]" id="comment-author" placeholder="Представьтесь *" value="<%= @cookies['homepage_comment_author'] %>" required />
+            <input type="email" name="comment[email]" id="comment-email" placeholder="Email *" value="<%= @cookies['homepage_comment_email'] %>" required />
             <input type="url" name="comment[url]" placeholder="Блог" value="<%= @cookies['homepage_comment_url'] %>" />
         </div>
         <div>
@@ -68,7 +68,7 @@
             <label for="subscribe">Получать уведомления о новых комментариях</label>
         </div>
         <div>
-            <input type="submit" value="Добавить комментарий" />
+            <input type="submit" id="add-comment" value="Добавить комментарий" />
         </div>
     </form>
 </section> <!-- #comment-form -->

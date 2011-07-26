@@ -136,6 +136,20 @@ get '/:slug/?' do
   erb :page
 end
 
+get '/blog/tag/?' do
+  @tags = Tag.all
+  @title = 'Теги :: ' + @title
+  @description = 'Теги :: ' + @description
+  erb :'blog/tags'
+end
+
+get '/blog/tag/:slug/?' do
+  @tag = Tag.first(:slug => params[:slug])
+  @title = @tag.tag + ' :: ' + @title
+  @description = @tag.tag + ' ' + @description
+  erb :'blog/tag'
+end
+
 get '/blog/:slug/?' do
   @post = Post.first('slug' => params[:slug], 'kind' => 'post')
   @title = @post.title + ' :: ' + @title
@@ -160,7 +174,7 @@ post '/blog/:slug/*' do
                          :homepage_comment_url    => params[:comment][:url] },
                        '/', Time.now + 3600 * 24 * 365)
 
-  comment = post.comments.new(params['comment'])
+  comment = post.comments.new(params[:comment])
 
   # Validation
   # If validation passed and comment has been saved - redirect back to post page
@@ -176,11 +190,4 @@ post '/blog/:slug/*' do
     session[:comment] = params[:comment][:content]
     redirect "#{@settings.url}/blog/#{params[:slug]}"
   end
-end
-
-get '/blog/tag/:slug/?' do
-  @tag = Tag.first(:slug => params[:slug])
-  @title = @tag.tag + ' :: ' + @title
-  @description = @tag.tag + ' ' + @description
-  erb :'blog/tag'
 end
